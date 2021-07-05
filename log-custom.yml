@@ -1,0 +1,13 @@
+- hosts: localhost
+  become: yes
+  become_user: root
+  vars:
+    custom_apps:
+      - name: getweather
+        lines:
+          - ":msg, contains, \"source=openweathermap\" /var/log/getweather.log"
+  roles:
+    - rsyslog
+  tags:
+    - rsyslog
+    - custom

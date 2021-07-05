@@ -53,10 +53,11 @@
     - rsyslog
 
 - name: copy application custom config
-  when: custom_apps == None 
+  when: custom_apps is defined
+  ignore_errors: yes
   template: 
     src: app_custom.j2
-    dest: /etc/rsyslog.d/{{ item.priority }}-{{ item.name  }}.conf
+    dest: /etc/rsyslog.d/{{ item.name }}.conf
     owner: root
     group: root
     mode: 0644
@@ -65,5 +66,5 @@
   notify:
     - restart rsyslog
   tags:
-    - rsyslog
+    - custom
 

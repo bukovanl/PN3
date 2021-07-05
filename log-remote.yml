@@ -1,0 +1,9 @@
+- hosts: localhost
+  become: yes
+  become_user: root
+  vars:
+    - remote_rsyslog: true
+  roles:
+    - rsyslog
+  tags:
+    - rsyslog
