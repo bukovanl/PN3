@@ -1,0 +1,69 @@
+---
+# tasks file for rsyslog
+- name: install rsyslogd
+  apt:
+    name: rsyslog
+    state: present
+  tags:
+    - rsyslog
+
+- name: enable and start rsyslogd
+  service:
+    name: rsyslog
+    state: started
+    enabled: yes
+  tags:
+    - rsyslog
+  
+
+- name: Create rsyslog.conf
+  template:
+    src: rsyslog.j2
+    dest: /etc/rsyslogd.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart rsyslog
+  tags:
+    - rsyslog
+
+- name: copy 20-ufw configs
+  template:
+    src: 20-ufw.j2
+    dest: /etc/rsyslog.d/20-ufw.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart rsyslog
+  tags:
+    - rsyslog
+
+- name: copy 50-default configs
+  template:
+    src: 50-default.j2
+    dest: /etc/rsyslog.d/50-default.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart rsyslog
+  tags:
+    - rsyslog
+
+- name: copy application custom config
+  when: custom_apps == None 
+  template: 
+    src: app_custom.j2
+    dest: /etc/rsyslog.d/{{ item.priority }}-{{ item.name  }}.conf
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - "{{ custom_apps }}"
+  notify:
+    - restart rsyslog
+  tags:
+    - rsyslog
+
