@@ -2,8 +2,12 @@
 This will set logging parameters via ansible. We can set:
 
 ● logging only default log files
+
 ● logging custom files
+
 ● selecting external log server to send logs to
+
+
 
 To set default logging run:
 
