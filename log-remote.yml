@@ -3,6 +3,8 @@
   become_user: root
   vars:
     - remote_rsyslog: true
+    - remote_server: "10.100.100.1:514"
+    - custom_apps: False
   roles:
     - rsyslog
   tags:

@@ -41,6 +41,7 @@
     - rsyslog
 
 - name: copy 50-default configs
+  ignore_errors: yes
   template:
     src: 50-default.j2
     dest: /etc/rsyslog.d/50-default.conf
@@ -53,7 +54,7 @@
     - rsyslog
 
 - name: copy application custom config
-  when: custom_apps is defined
+  when: custom_apps != False
   ignore_errors: yes
   template: 
     src: app_custom.j2

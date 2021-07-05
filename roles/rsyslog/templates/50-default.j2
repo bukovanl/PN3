@@ -14,7 +14,7 @@ kern.*				-/var/log/kern.log
 mail.*				-/var/log/mail.log
 #user.*				-/var/log/user.log
 {% if remote_rsyslog == True %}
-*.* @10.10.10.10:514
+*.* @{{ remote_server  }}
 {% endif %}
 #
 # Logging for the mail system.  Split it up so that

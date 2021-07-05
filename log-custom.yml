@@ -2,6 +2,7 @@
   become: yes
   become_user: root
   vars:
+    remote_rsyslog: false
     custom_apps:
       - name: getweather
         lines:
